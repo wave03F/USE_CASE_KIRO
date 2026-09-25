@@ -44,110 +44,16 @@
       </span>
       <span class="brand-text">Kiro<span class="brand-dot">.</span>Lab</span>
     </a>
-    <nav class="nav-links">
-      <a href="#steps">ขั้นตอน</a>
-      <a href="#prereq">เตรียมตัว</a>
-      <a href="#bonus">โจทย์ต่อยอด</a>
+    <nav class="nav-links" id="labNav">
+      <a href="lab.html">Labs ทั้งหมด</a>
       <a href="index.html">← กลับหน้าหลัก</a>
     </nav>
-    <a href="preview/index.html" target="_blank" class="btn btn-primary btn-sm">ดูผลลัพธ์ที่ควรได้</a>
+    <a href="index.html#getstarted" class="btn btn-primary btn-sm">เริ่มใช้ Kiro ฟรี</a>
   </div>
 </header>
 
-<!-- ===== Hero ===== -->
-<section class="hero lab-hero" id="top">
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="container hero-inner">
-    <span class="pill"><span class="pill-dot"></span> Hands-on Lab · ระดับเริ่มต้น · ~30-45 นาที</span>
-    <h1 class="hero-title">
-      สร้างเว็บ <span class="grad-text">Pomodoro Timer</span><br />
-      ด้วย Kiro แบบ Spec-Driven
-    </h1>
-    <p class="hero-sub">
-      Lab นี้ให้คุณลงมือทำจริงตั้งแต่ต้นจนจบ ไม่ต้องเขียนโค้ดเอง แค่คุยกับ Kiro เป็นภาษาคน
-      คุณจะได้เห็นวิธีเปลี่ยนไอเดียเป็น spec แล้วให้ Kiro สร้างโค้ดที่ทำงานได้จริง
-    </p>
-    <div class="hero-cta">
-      <a href="#steps" class="btn btn-primary">เริ่ม Lab</a>
-      <a href="preview/index.html" target="_blank" class="btn btn-ghost">เปิดดูผลลัพธ์ตัวอย่าง</a>
-    </div>
-    <div class="lab-goal">
-      <div class="lab-goal-item"><span class="lab-goal-ico">🎯</span> ได้เว็บ Pomodoro ที่ใช้ได้จริง</div>
-      <div class="lab-goal-item"><span class="lab-goal-ico">🧠</span> เข้าใจ workflow ของ Kiro</div>
-      <div class="lab-goal-item"><span class="lab-goal-ico">⌨️</span> เขียนโค้ดเองน้อยที่สุด</div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== What is Pomodoro ===== -->
-<section class="section" id="what">
-  <div class="container narrow">
-    <div class="callout">
-      <h3>🍅 โจทย์ของเรา: Pomodoro Timer คืออะไร?</h3>
-      <p>
-        เทคนิค Pomodoro คือการโฟกัสงาน 25 นาที แล้วพัก 5 นาที สลับกันไป
-        เว็บที่เราจะสร้างมีปุ่ม Start / Pause / Reset, นับถอยหลังบนหน้าจอ, สลับโหมดโฟกัส/พักอัตโนมัติ
-        และมีเสียงเตือนเมื่อหมดเวลา โจทย์เล็กแต่ครบองค์ประกอบของเว็บแอปจริง
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== Prerequisites ===== -->
-<section class="section section-alt" id="prereq">
-  <div class="container narrow">
-    <div class="section-head left">
-      <span class="eyebrow">ก่อนเริ่ม</span>
-      <h2>เตรียมตัว 3 อย่าง</h2>
-    </div>
-    <ol class="prep-list">
-      <li><b>ติดตั้ง Kiro</b> — เปิด Kiro IDE ขึ้นมาให้พร้อม (ถ้ายังไม่มี ดูวิธีสมัครฟรีที่หน้าหลัก)</li>
-      <li><b>สร้างโฟลเดอร์ว่าง</b> — เช่น <code>pomodoro-lab</code> แล้วเปิดเป็น workspace ใน Kiro</li>
-      <li><b>เปิด Chat ของ Kiro</b> — เราจะพิมพ์คุยกับ Kiro ทั้งหมดจากตรงนี้ ไม่ต้องเปิดไฟล์เขียนเอง</li>
-    </ol>
-    <div class="tip">
-      <span class="tip-badge">เคล็ดลับ</span>
-      แต่ละขั้นตอนมีปุ่ม <b>คัดลอก prompt</b> ให้กดแล้ววางใน Chat ของ Kiro ได้เลย ปรับแก้คำได้ตามใจ
-    </div>
-  </div>
-</section>
-
-<!-- ===== Steps ===== -->
-<section class="section" id="steps">
-  <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">ลงมือทำ</span>
-      <h2>6 ขั้นตอน จากไอเดีย → เว็บที่รันได้</h2>
-      <p class="section-desc">ทำตามทีละขั้น กดคัดลอก prompt วางใน Kiro แล้วดูมันทำงาน</p>
-    </div>
-
-    <div class="timeline" id="timeline"></div>
-  </div>
-</section>
-
-<!-- ===== Bonus ===== -->
-<section class="section section-alt" id="bonus">
-  <div class="container narrow">
-    <div class="section-head left">
-      <span class="eyebrow">อยากท้าทายต่อ</span>
-      <h2>โจทย์ต่อยอด (Bonus)</h2>
-      <p class="section-desc">ลองสั่ง Kiro เพิ่มฟีเจอร์เหล่านี้ เพื่อดูว่ามันต่อยอดจาก spec เดิมได้เร็วแค่ไหน</p>
-    </div>
-    <div class="grid grid-2 bonus-grid" id="bonusGrid"></div>
-  </div>
-</section>
-
-<!-- ===== CTA ===== -->
-<section class="cta">
-  <div class="container cta-inner">
-    <h2>ชอบ Lab นี้ไหม? นี่คือแค่จุดเริ่มต้น</h2>
-    <p>ลองนึกภาพทีมคุณสร้างระบบจริงระดับองค์กรด้วยวิธีเดียวกันนี้ — เริ่มฟรีได้เลย หรือคุยกับทีมเรา</p>
-    <div class="hero-cta">
-      <a href="index.html#getstarted" class="btn btn-primary">ดูทางเลือกเริ่มต้นใช้งาน</a>
-      <a href="index.html#showcase" class="btn btn-ghost">ดูตัวอย่างระบบจริง</a>
-    </div>
-  </div>
-</section>
+<!-- เนื้อหาทั้งหมดถูก render โดย lab.js ตาม ?lab= ใน URL -->
+<main id="labRoot"></main>
 
 <footer class="footer">
   <div class="container footer-inner">
@@ -157,8 +63,10 @@
 </footer>
 
 <!-- toast -->
-<div class="toast" id="toast">คัดลอกแล้ว ✓</div>
+<div class="toast" id="toast"><span data-icon="check"></span> คัดลอกแล้ว</div>
 
+<script src="icons.js"></script>
+<script src="lab-data.js"></script>
 <script src="lab.js"></script>
 </body>
 </html>

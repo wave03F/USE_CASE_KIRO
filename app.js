@@ -5,13 +5,18 @@
 (function () {
   "use strict";
 
+  /* ---------- เติม SVG icon ให้ทุก element ที่มี data-icon ---------- */
+  document.querySelectorAll("[data-icon]").forEach(function (el) {
+    el.innerHTML = icon(el.dataset.icon);
+  });
+
   /* ---------- Actors ---------- */
   const actorGrid = document.getElementById("actorGrid");
   ACTORS.forEach((a) => {
     const el = document.createElement("article");
     el.className = "card actor-card";
     el.innerHTML =
-      '<div class="actor-icon">' + a.icon + "</div>" +
+      '<div class="actor-icon">' + icon(a.icon) + "</div>" +
       '<div class="actor-meta">' +
       '<h3>' + a.name + "</h3>" +
       '<span class="tag tag-' + typeClass(a.type) + '">' + a.type + "</span>" +
@@ -64,10 +69,10 @@
         "<h3>" + u.name + "</h3>" +
         '<p class="uc-desc">' + u.description + "</p>" +
         '<div class="uc-foot">' +
-        '<span class="uc-actor">👤 ' + u.actor + "</span>" +
+        '<span class="uc-actor">' + icon("user", "ic-sm") + u.actor + "</span>" +
         '<span class="prio prio-' + u.priority.toLowerCase() + '">' + u.priority + "</span>" +
         "</div>" +
-        '<span class="uc-more">ดูรายละเอียดเต็ม →</span>';
+        '<span class="uc-more">ดูรายละเอียดเต็ม' + icon("arrowRight", "ic-sm") + "</span>";
       card.addEventListener("click", () => openModal(u));
       ucGrid.appendChild(card);
     });
@@ -93,7 +98,7 @@
       '<span class="prio prio-' + u.priority.toLowerCase() + '">Priority: ' + u.priority + "</span>" +
       "</div>" +
       '<h2 class="modal-title"><span class="modal-uc-id">' + u.id + "</span> " + u.name + "</h2>" +
-      '<p class="modal-actor">👤 <b>Actor:</b> ' + u.actor + "</p>" +
+      '<p class="modal-actor">' + icon("user", "ic-sm") + '<b>Actor:</b> ' + u.actor + "</p>" +
       '<p class="modal-descr">' + u.description + "</p>" +
       block("Preconditions", list(u.pre)) +
       block("Main Flow", olist(u.main)) +

@@ -59,10 +59,10 @@
         "<h3>" + u.name + "</h3>" +
         '<p class="uc-desc">' + u.description + "</p>" +
         '<div class="uc-foot">' +
-        '<span class="uc-actor">👤 ' + u.actor + "</span>" +
+        '<span class="uc-actor">' + icon("user", "ic-sm") + u.actor + "</span>" +
         '<span class="prio prio-' + prioClass(u.priority) + '">' + u.priority + "</span>" +
         "</div>" +
-        '<span class="uc-more">ดูรายละเอียดเต็ม →</span>';
+        '<span class="uc-more">ดูรายละเอียดเต็ม' + icon("arrowRight", "ic-sm") + "</span>";
       card.addEventListener("click", () => openModal(u, mod));
       grid.appendChild(card);
     });
@@ -96,7 +96,7 @@
       '<span class="prio prio-' + prioClass(u.priority) + '">Priority: ' + u.priority + "</span>" +
       "</div>" +
       '<h2 class="modal-title"><span class="modal-uc-id">' + u.id + "</span> " + u.name + "</h2>" +
-      '<p class="modal-actor">👤 <b>Actor:</b> ' + u.actor + "</p>" +
+      '<p class="modal-actor">' + icon("user", "ic-sm") + '<b>Actor:</b> ' + u.actor + "</p>" +
       '<p class="modal-descr">' + u.description + "</p>" +
       block("Preconditions", ul(u.pre)) +
       block("Main Flow", ol(u.main)) +

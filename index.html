@@ -105,17 +105,17 @@
     </div>
     <div class="grid grid-3">
       <article class="card value-card">
-        <div class="card-ico ico-spec">◈</div>
+        <div class="card-ico ico-spec" data-icon="spec"></div>
         <h3>Spec คือความจริง</h3>
-        <p>ทุกฟีเจอร์เริ่มจาก requirement → design → tasks เอกsารกับโค้ดไม่มีวันหลุดจากกัน ตรวจสอบย้อนกลับได้ทุกบรรทัด</p>
+        <p>ทุกฟีเจอร์เริ่มจาก requirement → design → tasks เอกสารกับโค้ดไม่มีวันหลุดจากกัน ตรวจสอบย้อนกลับได้ทุกบรรทัด</p>
       </article>
       <article class="card value-card">
-        <div class="card-ico ico-auto">⚡</div>
+        <div class="card-ico ico-auto" data-icon="bolt"></div>
         <h3>ทำงานอัตโนมัติ</h3>
         <p>Agent Hooks จุดชนวนงานซ้ำ ๆ ให้เองเมื่อบันทึกไฟล์ สร้างไฟล์ หรือจบ task ทีมโฟกัสงานที่สร้างคุณค่า</p>
       </article>
       <article class="card value-card">
-        <div class="card-ico ico-connect">⛓</div>
+        <div class="card-ico ico-connect" data-icon="link"></div>
         <h3>ต่อกับระบบจริง</h3>
         <p>MCP เชื่อม Kiro กับ external tools และ data source ขององค์กร ทำงานบนบริบทจริงขององค์กรได้ทันที</p>
       </article>
@@ -237,12 +237,12 @@
   <div class="container">
     <div class="lab-cta-card">
       <div class="lab-cta-text">
-        <span class="eyebrow">Hands-on Lab · ฟรี</span>
-        <h2>อยากลองเองก่อน? สร้างเว็บจริงใน 30 นาที</h2>
-        <p>ทำตาม Lab ทีละขั้น สร้างเว็บ Pomodoro Timer ด้วย Kiro โดยไม่ต้องเขียนโค้ดเอง เห็นด้วยตาว่า Spec-Driven Development ทำงานยังไง</p>
+        <span class="eyebrow">Hands-on Labs · ฟรี</span>
+        <h2>อยากลองเองก่อน? เลือกได้ 5 Lab</h2>
+        <p>ตั้งแต่ Pomodoro Timer, To-Do List, Landing Page ไปจนถึง REST API ทำตามทีละขั้นด้วย Kiro โดยไม่ต้องเขียนโค้ดเอง เห็นด้วยตาว่า Spec-Driven Development ทำงานยังไง</p>
         <div class="hero-cta">
-          <a href="lab.html" class="btn btn-primary">เริ่มทำ Lab</a>
-          <a href="preview/index.html" target="_blank" class="btn btn-ghost">ดูผลลัพธ์ที่จะได้</a>
+          <a href="lab.html" class="btn btn-primary">ดู Labs ทั้งหมด</a>
+          <a href="lab.html?lab=pomodoro" class="btn btn-ghost">เริ่มจาก Pomodoro</a>
         </div>
       </div>
       <div class="lab-cta-visual" aria-hidden="true">
@@ -293,11 +293,11 @@
         <div class="contact-box">
           <span class="contact-title">ช่องทางติดต่อ Com7 Business</span>
           <a class="contact-row" href="mailto:cloudservice@comseven.com">
-            <span class="contact-ico">✉️</span>
+            <span class="contact-ico" data-icon="mail"></span>
             <span><span class="contact-label">อีเมลบริการระบบ Cloud</span><span class="contact-val">cloudservice@comseven.com</span></span>
           </a>
           <a class="contact-row" href="tel:+6620177777">
-            <span class="contact-ico">📞</span>
+            <span class="contact-ico" data-icon="phone"></span>
             <span><span class="contact-label">โทรศัพท์</span><span class="contact-val">02-017-7777 (ต่อ 7677)</span></span>
           </a>
         </div>
@@ -337,6 +337,7 @@
   </div>
 </div>
 
+<script src="icons.js"></script>
 <script src="data.js"></script>
 <script src="showcase-data.js"></script>
 <script src="app.js"></script>

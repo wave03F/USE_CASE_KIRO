@@ -1,188 +1,273 @@
 /* ============================================================
-   lab.js — เนื้อหา Lab + interaction (copy prompt, timeline)
+   lab.js — router สำหรับหน้า Lab
+   - ไม่มี ?lab=  → แสดง catalog (เลือกจาก 5 Lab)
+   - มี ?lab=key → แสดงรายละเอียด Lab นั้น (steps + bonus)
    ============================================================ */
-
-const STEPS = [
-  {
-    n: 1,
-    tag: "Spec",
-    title: "บอก Kiro ว่าอยากได้อะไร (สร้าง Spec)",
-    desc: "เริ่มจากเล่าไอเดียเป็นภาษาคน Kiro จะเปลี่ยนให้เป็นเอกสาร requirements ที่ชัดเจน นี่คือหัวใจของ Spec-Driven Development",
-    prompt:
-      "อยากได้เว็บ Pomodoro Timer แบบ single page ใช้ HTML/CSS/JS ล้วน ไม่ต้องมี framework\n" +
-      "ความสามารถที่ต้องการ:\n" +
-      "- นับถอยหลังโหมดโฟกัส 25 นาที และโหมดพัก 5 นาที\n" +
-      "- ปุ่ม Start, Pause, Reset\n" +
-      "- พอหมดเวลาให้สลับโหมดอัตโนมัติและมีเสียงเตือน\n" +
-      "- แสดงจำนวนรอบ (pomodoro) ที่ทำเสร็จ\n" +
-      "ช่วยสร้าง spec (requirements) ให้ก่อน ยังไม่ต้องเขียนโค้ด",
-    expect: "Kiro สร้างเอกสาร requirements เป็นข้อ ๆ (มักอยู่ใน .kiro/specs/) พร้อมถามยืนยันก่อนไปต่อ"
-  },
-  {
-    n: 2,
-    tag: "Design",
-    title: "ให้ Kiro ออกแบบวิธีทำ (Design)",
-    desc: "เมื่อ requirements ตรงใจแล้ว ให้ Kiro วางแผนการออกแบบ เช่น โครงไฟล์ โครงสร้างข้อมูล และ logic การนับเวลา",
-    prompt:
-      "requirements โอเคแล้ว ช่วยทำเอกสาร design ต่อ\n" +
-      "อยากให้แยกเป็น 3 ไฟล์: index.html, styles.css, app.js\n" +
-      "อธิบายด้วยว่าจะจับเวลายังไง (ใช้ setInterval), เก็บ state อะไรบ้าง และสลับโหมดยังไง",
-    expect: "Kiro สร้างเอกสาร design อธิบายโครงสร้างไฟล์ + state + flow การทำงาน"
-  },
-  {
-    n: 3,
-    tag: "Tasks",
-    title: "แตกงานเป็น Task List",
-    desc: "Kiro แปลง design เป็นรายการงานย่อยที่ทำทีละขั้น ทำให้เห็นความคืบหน้าและควบคุมได้",
-    prompt:
-      "design โอเค ช่วยแตกเป็น task list ที่ทำทีละขั้นได้\n" +
-      "เรียงลำดับให้เริ่มจากโครง HTML → หน้าตา CSS → logic การจับเวลา → เสียงเตือนและนับรอบ",
-    expect: "Kiro สร้าง task list เรียงลำดับ แต่ละ task ผูกกับ requirement และเลือกให้ทำทีละอันได้"
-  },
-  {
-    n: 4,
-    tag: "Code",
-    title: "ให้ Kiro ลงมือสร้างโค้ด",
-    desc: "สั่งให้ Kiro ทำ task แรก แล้วไล่ไปทีละอัน Kiro จะเขียนโค้ด รันตรวจ และรายงานผลให้",
-    prompt:
-      "เริ่มทำ task แรกได้เลย แล้วทำต่อไปทีละ task จนครบ\n" +
-      "ทำเสร็จแต่ละ task ช่วยสรุปสั้น ๆ ว่าแก้ไฟล์ไหนไปบ้าง",
-    expect: "Kiro สร้าง index.html / styles.css / app.js ให้ครบ ทำงานได้ พร้อมทยอยติ๊ก task ที่เสร็จ"
-  },
-  {
-    n: 5,
-    tag: "Steering",
-    title: "ตั้งมาตรฐานให้ Kiro จำ (Steering)",
-    desc: "Steering คือกฎที่ Kiro จะจำและใช้ทุกครั้ง เหมาะกับ coding style หรือข้อกำหนดของทีม ลองตั้งดูสัก 1 ข้อ",
-    prompt:
-      "ช่วยสร้าง steering file ที่บอกว่า:\n" +
-      "- โค้ดทุกไฟล์ต้องมีคอมเมนต์ภาษาไทยอธิบายส่วนสำคัญ\n" +
-      "- ใช้สีธีมม่วง (#7c5cff) เป็นสีหลักของปุ่ม\n" +
-      "แล้วปรับเว็บ Pomodoro ให้เข้ากับกฎนี้",
-    expect: "Kiro สร้างไฟล์ใน .kiro/steering/ และปรับโค้ดให้ตรงกฎ ครั้งต่อ ๆ ไปมันจะจำกฎนี้เอง"
-  },
-  {
-    n: 6,
-    tag: "Hook",
-    title: "ทำงานอัตโนมัติด้วย Agent Hook",
-    desc: "Hook ให้ Kiro ทำงานเองเมื่อเกิดเหตุการณ์ เช่น ทุกครั้งที่บันทึกไฟล์ ลองสร้าง hook ตรวจโค้ดอัตโนมัติ",
-    prompt:
-      "ช่วยสร้าง Agent Hook ที่ทำงานทุกครั้งที่ผมบันทึกไฟล์ .js\n" +
-      "ให้ตรวจว่าโค้ดมี console.log ที่ลืมลบไหม แล้วเตือนผม",
-    expect: "Kiro สร้างไฟล์ hook ใน .kiro/hooks/ พอบันทึกไฟล์ .js hook จะทำงานตามที่ตั้งไว้"
-  }
-];
-
-const BONUS = [
-  { ico: "🌙", title: "โหมดมืด/สว่าง", text: "ขอให้ Kiro เพิ่มปุ่มสลับ Dark/Light mode และจำค่าที่เลือกไว้ใน localStorage" },
-  { ico: "⏱️", title: "ปรับเวลาได้เอง", text: "ให้ผู้ใช้ตั้งเวลาโฟกัส/พักเองได้ แทนที่จะ fix 25/5 นาที" },
-  { ico: "📊", title: "สถิติรายวัน", text: "เก็บจำนวน pomodoro ที่ทำในแต่ละวัน แล้วโชว์เป็นกราฟง่าย ๆ" },
-  { ico: "🔔", title: "แจ้งเตือนเบราว์เซอร์", text: "ใช้ Notification API เด้งแจ้งเตือนเมื่อหมดเวลา แม้สลับแท็บอยู่" }
-];
 
 (function () {
   "use strict";
 
-  /* ---------- Render steps ---------- */
-  const tl = document.getElementById("timeline");
-  STEPS.forEach((s) => {
-    const item = document.createElement("div");
-    item.className = "tl-item";
-    item.innerHTML =
-      '<div class="tl-marker"><span class="tl-num">' + s.n + "</span></div>" +
-      '<div class="tl-card card">' +
-      '<div class="tl-head">' +
-      '<span class="tl-tag">' + s.tag + "</span>" +
-      "<h3>" + s.title + "</h3>" +
-      "</div>" +
-      '<p class="tl-desc">' + s.desc + "</p>" +
-      '<div class="prompt-box">' +
-      '<div class="prompt-bar"><span>Prompt สำหรับวางใน Kiro</span>' +
-      '<button class="copy-btn" data-prompt="' + encodeURIComponent(s.prompt) + '">คัดลอก</button></div>' +
-      "<pre class=\"prompt-text\">" + escapeHtml(s.prompt) + "</pre>" +
-      "</div>" +
-      '<div class="expect"><span class="expect-label">สิ่งที่ควรเห็น</span>' + s.expect + "</div>" +
-      "</div>";
-    tl.appendChild(item);
-  });
+  const root = document.getElementById("labRoot");
+  const labNav = document.getElementById("labNav");
+  const params = new URLSearchParams(location.search);
+  const key = params.get("lab");
 
-  /* ---------- Render bonus ---------- */
-  const bg = document.getElementById("bonusGrid");
-  BONUS.forEach((b) => {
-    const el = document.createElement("article");
-    el.className = "card bonus-card";
-    el.innerHTML =
-      '<div class="bonus-ico">' + b.ico + "</div>" +
-      "<h3>" + b.title + "</h3>" +
-      "<p>" + b.text + "</p>";
-    bg.appendChild(el);
-  });
+  if (key && LABS[key]) {
+    renderDetail(key, LABS[key]);
+  } else {
+    renderCatalog();
+  }
 
-  /* ---------- Copy buttons ---------- */
-  const toast = document.getElementById("toast");
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".copy-btn");
-    if (!btn) return;
-    const text = decodeURIComponent(btn.dataset.prompt);
-    copyText(text).then(() => {
-      btn.textContent = "คัดลอกแล้ว ✓";
-      showToast();
-      setTimeout(() => (btn.textContent = "คัดลอก"), 1600);
+  fillIcons();
+  bindCopy();
+  bindProgress();
+  bindReveal();
+  bindSmoothScroll();
+
+  /* ============================================================
+     Catalog view — เลือก Lab
+     ============================================================ */
+  function renderCatalog() {
+    labNav.innerHTML =
+      '<a href="index.html">← กลับหน้าหลัก</a>';
+
+    let cards = "";
+    LAB_ORDER.forEach(function (k) {
+      const lab = LABS[k];
+      cards +=
+        '<a class="card lab-pick" href="lab.html?lab=' + k + '">' +
+        '<div class="lab-pick-top">' +
+        '<span class="lab-pick-ico" data-icon="' + lab.icon + '"></span>' +
+        '<span class="lab-pick-badges">' +
+        '<span class="lab-badge lab-badge-' + levelClass(lab.level) + '">' + lab.level + "</span>" +
+        '<span class="lab-badge lab-badge-tag">' + lab.tag + "</span>" +
+        "</span>" +
+        "</div>" +
+        "<h3>" + lab.title + "</h3>" +
+        '<p class="lab-pick-tag">' + lab.tagline + "</p>" +
+        '<div class="lab-pick-foot">' +
+        '<span class="lab-time"><span data-icon="timer"></span>' + lab.time + "</span>" +
+        '<span class="lab-pick-go">เริ่มทำ<span data-icon="arrowRight"></span></span>' +
+        "</div>" +
+        "</a>";
     });
-  });
 
-  function copyText(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
-    }
-    return Promise.resolve(fallbackCopy(text));
+    root.innerHTML =
+      '<section class="hero lab-hero" id="top">' +
+      '<div class="hero-glow" aria-hidden="true"></div>' +
+      '<div class="container hero-inner">' +
+      '<span class="pill"><span class="pill-dot"></span> Hands-on Labs · ลงมือทำจริงกับ Kiro</span>' +
+      '<h1 class="hero-title">เลือก Lab ที่อยากลอง<br />แล้วสร้างของจริงไปกับ <span class="grad-text">Kiro</span></h1>' +
+      '<p class="hero-sub">แต่ละ Lab พาคุณเดินตาม Spec-Driven Development ครบทุกขั้น พร้อม prompt สำเร็จรูปที่กดคัดลอกไปวางใน Kiro ได้เลย ไม่ต้องเขียนโค้ดเอง</p>' +
+      "</div></section>" +
+      '<section class="section"><div class="container">' +
+      '<div class="section-head"><span class="eyebrow">เลือกได้ ' + LAB_ORDER.length + ' รูปแบบ</span>' +
+      "<h2>Labs ทั้งหมด</h2>" +
+      '<p class="section-desc">ตั้งแต่เว็บแอปเบา ๆ ไปจนถึง REST API ฝั่ง backend เลือกตามความสนใจหรือระดับได้เลย</p></div>' +
+      '<div class="grid grid-3 lab-catalog">' + cards + "</div>" +
+      "</div></section>" +
+      ctaBlock();
   }
-  function fallbackCopy(text) {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.position = "fixed";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand("copy"); } catch (e) {}
-    document.body.removeChild(ta);
+
+  /* ============================================================
+     Detail view — รายละเอียด Lab
+     ============================================================ */
+  function renderDetail(k, lab) {
+    labNav.innerHTML =
+      '<a href="lab.html">Labs ทั้งหมด</a>' +
+      '<a href="index.html">← กลับหน้าหลัก</a>';
+
+    // goal chips อิงเป้าหมายมาตรฐานของทุก Lab
+    const goals =
+      '<div class="lab-goal">' +
+      '<div class="lab-goal-item"><span class="lab-goal-ico" data-icon="target"></span> ได้ ' + lab.title + " ที่ใช้ได้จริง</div>" +
+      '<div class="lab-goal-item"><span class="lab-goal-ico" data-icon="brain"></span> เข้าใจ workflow ของ Kiro</div>' +
+      '<div class="lab-goal-item"><span class="lab-goal-ico" data-icon="keyboard"></span> เขียนโค้ดเองน้อยที่สุด</div>' +
+      "</div>";
+
+    const previewBtn = lab.preview
+      ? '<a href="' + lab.preview + '" target="_blank" class="btn btn-ghost">เปิดดูผลลัพธ์ตัวอย่าง</a>'
+      : "";
+
+    // steps
+    let steps = "";
+    lab.steps.forEach(function (s, i) {
+      steps +=
+        '<div class="tl-item">' +
+        '<div class="tl-marker"><span class="tl-num">' + (i + 1) + "</span></div>" +
+        '<div class="tl-card card">' +
+        '<div class="tl-head"><span class="tl-tag">' + s.tag + "</span><h3>" + s.title + "</h3></div>" +
+        '<p class="tl-desc">' + s.desc + "</p>" +
+        '<div class="prompt-box"><div class="prompt-bar"><span>Prompt สำหรับวางใน Kiro</span>' +
+        '<button class="copy-btn" data-prompt="' + encodeURIComponent(s.prompt) + '">คัดลอก</button></div>' +
+        '<pre class="prompt-text">' + escapeHtml(s.prompt) + "</pre></div>" +
+        '<div class="expect"><span class="expect-label">สิ่งที่ควรเห็น</span>' + s.expect + "</div>" +
+        "</div></div>";
+    });
+
+    // bonus
+    let bonus = "";
+    lab.bonus.forEach(function (b) {
+      bonus +=
+        '<article class="card bonus-card">' +
+        '<div class="bonus-ico" data-icon="' + b.ico + '"></div>' +
+        "<h3>" + b.title + "</h3><p>" + b.text + "</p></article>";
+    });
+
+    root.innerHTML =
+      // hero
+      '<section class="hero lab-hero" id="top">' +
+      '<div class="hero-glow" aria-hidden="true"></div>' +
+      '<div class="container hero-inner">' +
+      '<a class="back-link" href="lab.html"><span data-icon="arrowRight" class="flip"></span> Labs ทั้งหมด</a>' +
+      '<span class="pill"><span class="pill-dot"></span> Hands-on Lab · ' + lab.level + " · ~" + lab.time + "</span>" +
+      '<h1 class="hero-title">สร้าง <span class="grad-text">' + lab.title + "</span><br />ด้วย Kiro แบบ Spec-Driven</h1>" +
+      '<p class="hero-sub">' + lab.tagline + " — ลงมือทำจริงตั้งแต่ต้นจนจบ แค่คุยกับ Kiro เป็นภาษาคน</p>" +
+      '<div class="hero-cta"><a href="#steps" class="btn btn-primary">เริ่ม Lab</a>' + previewBtn + "</div>" +
+      goals +
+      "</div></section>" +
+      // intro callout
+      '<section class="section"><div class="container narrow">' +
+      '<div class="callout"><h3><span class="callout-ico" data-icon="' + lab.icon + '"></span>โจทย์ของเรา: ' + lab.title + "</h3>" +
+      "<p>" + lab.intro + "</p></div></div></section>" +
+      // prerequisites (ใช้ร่วมทุก Lab)
+      '<section class="section section-alt" id="prereq"><div class="container narrow">' +
+      '<div class="section-head left"><span class="eyebrow">ก่อนเริ่ม</span><h2>เตรียมตัว 3 อย่าง</h2></div>' +
+      '<ol class="prep-list">' +
+      "<li><b>ติดตั้ง Kiro</b> — เปิด Kiro IDE ให้พร้อม (ยังไม่มี ดูวิธีสมัครฟรีที่หน้าหลัก)</li>" +
+      "<li><b>สร้างโฟลเดอร์ว่าง</b> — เช่น <code>" + k + "-lab</code> แล้วเปิดเป็น workspace ใน Kiro</li>" +
+      "<li><b>เปิด Chat ของ Kiro</b> — เราจะพิมพ์คุยกับ Kiro ทั้งหมดจากตรงนี้</li>" +
+      "</ol>" +
+      '<div class="tip"><span class="tip-badge">เคล็ดลับ</span> แต่ละขั้นมีปุ่ม <b>คัดลอก prompt</b> กดแล้ววางใน Chat ของ Kiro ได้เลย ปรับแก้คำได้ตามใจ</div>' +
+      "</div></section>" +
+      // steps
+      '<section class="section" id="steps"><div class="container">' +
+      '<div class="section-head"><span class="eyebrow">ลงมือทำ</span><h2>' + lab.steps.length + " ขั้นตอน จากไอเดีย → ของจริงที่รันได้</h2>" +
+      '<p class="section-desc">ทำทีละขั้น กดคัดลอก prompt วางใน Kiro แล้วดูมันทำงาน</p></div>' +
+      '<div class="timeline">' + steps + "</div>" +
+      "</div></section>" +
+      // bonus
+      '<section class="section section-alt" id="bonus"><div class="container narrow">' +
+      '<div class="section-head left"><span class="eyebrow">อยากท้าทายต่อ</span><h2>โจทย์ต่อยอด (Bonus)</h2>' +
+      '<p class="section-desc">ลองสั่ง Kiro เพิ่มฟีเจอร์เหล่านี้ ดูว่ามันต่อยอดจาก spec เดิมได้เร็วแค่ไหน</p></div>' +
+      '<div class="grid grid-2 bonus-grid">' + bonus + "</div>" +
+      "</div></section>" +
+      // next labs
+      nextLabsBlock(k) +
+      ctaBlock();
   }
-  let toastTimer;
-  function showToast() {
-    toast.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove("show"), 1600);
+
+  /* ---------- แนะนำ Lab อื่นท้ายหน้า detail ---------- */
+  function nextLabsBlock(current) {
+    const others = LAB_ORDER.filter((x) => x !== current).slice(0, 3);
+    let cards = "";
+    others.forEach(function (k) {
+      const lab = LABS[k];
+      cards +=
+        '<a class="card lab-mini" href="lab.html?lab=' + k + '">' +
+        '<span class="lab-mini-ico" data-icon="' + lab.icon + '"></span>' +
+        "<div><h4>" + lab.title + "</h4><span>" + lab.level + " · " + lab.tag + "</span></div>" +
+        "</a>";
+    });
+    return (
+      '<section class="section"><div class="container">' +
+      '<div class="section-head"><span class="eyebrow">ทำต่อได้เลย</span><h2>ลอง Lab อื่น</h2></div>' +
+      '<div class="grid grid-3 lab-mini-grid">' + cards + "</div>" +
+      "</div></section>"
+    );
+  }
+
+  function ctaBlock() {
+    return (
+      '<section class="cta"><div class="container cta-inner">' +
+      "<h2>ชอบ Lab นี้ไหม? นี่คือแค่จุดเริ่มต้น</h2>" +
+      "<p>ลองนึกภาพทีมคุณสร้างระบบจริงระดับองค์กรด้วยวิธีเดียวกันนี้ — เริ่มฟรีได้เลย หรือคุยกับทีมเรา</p>" +
+      '<div class="hero-cta"><a href="index.html#getstarted" class="btn btn-primary">ดูทางเลือกเริ่มต้นใช้งาน</a>' +
+      '<a href="index.html#showcase" class="btn btn-ghost">ดูตัวอย่างระบบจริง</a></div>' +
+      "</div></section>"
+    );
+  }
+
+  /* ============================================================
+     Helpers
+     ============================================================ */
+  function levelClass(level) {
+    return level.indexOf("กลาง") >= 0 ? "mid" : "basic";
+  }
+
+  function fillIcons() {
+    document.querySelectorAll("[data-icon]").forEach(function (el) {
+      el.innerHTML = icon(el.dataset.icon);
+    });
   }
 
   function escapeHtml(s) {
     return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
+  /* ---------- Copy ---------- */
+  function bindCopy() {
+    const toast = document.getElementById("toast");
+    let toastTimer;
+    document.addEventListener("click", function (e) {
+      const btn = e.target.closest(".copy-btn");
+      if (!btn) return;
+      const text = decodeURIComponent(btn.dataset.prompt);
+      copyText(text).then(function () {
+        btn.innerHTML = icon("check", "ic-sm") + "คัดลอกแล้ว";
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 1600);
+        setTimeout(function () { btn.textContent = "คัดลอก"; }, 1600);
+      });
+    });
+  }
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(function () { return fallbackCopy(text); });
+    }
+    return Promise.resolve(fallbackCopy(text));
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
   /* ---------- Scroll progress ---------- */
-  const progress = document.getElementById("scrollProgress");
-  window.addEventListener("scroll", () => {
-    const h = document.documentElement;
-    progress.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
-  });
-
-  /* ---------- Reveal + smooth scroll ---------- */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add("revealed"); io.unobserve(e.target); }
+  function bindProgress() {
+    const progress = document.getElementById("scrollProgress");
+    window.addEventListener("scroll", function () {
+      const h = document.documentElement;
+      progress.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll(".tl-item, .bonus-card, .callout, .section-head").forEach((el) => {
-    el.classList.add("reveal");
-    io.observe(el);
-  });
+  }
 
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    a.addEventListener("click", (e) => {
-      const id = a.getAttribute("href");
-      if (id.length > 1) {
-        const t = document.querySelector(id);
-        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: "smooth" }); }
-      }
+  /* ---------- Reveal ---------- */
+  function bindReveal() {
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("revealed"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".tl-item, .bonus-card, .callout, .section-head, .lab-pick, .lab-mini").forEach(function (el) {
+      el.classList.add("reveal");
+      io.observe(el);
     });
-  });
+  }
+
+  /* ---------- Smooth scroll ---------- */
+  function bindSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        const id = a.getAttribute("href");
+        if (id.length > 1) {
+          const t = document.querySelector(id);
+          if (t) { e.preventDefault(); t.scrollIntoView({ behavior: "smooth" }); }
+        }
+      });
+    });
+  }
 })();

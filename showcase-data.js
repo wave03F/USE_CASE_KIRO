@@ -87,7 +87,7 @@ const SHOWCASE_UC = [
     ears: "WHEN ผู้ใช้สั่ง logout THE SYSTEM SHALL ตอบยืนยันเพื่อให้ client ลบ token ที่ถืออยู่"
   },
   {
-    id: "UC-010", module: "calc", name: "คำนวณต้นทุนนำเข้ารวม (Landed Cost) ⭐", priority: "Critical",
+    id: "UC-010", module: "calc", name: "คำนวณต้นทุนนำเข้ารวม (Landed Cost)", priority: "Critical",
     actor: "Registered User / API Client",
     description: "หัวใจของระบบ — คำนวณต้นทุนนำเข้ารวมของสินค้า 1 รายการ รวมภาษีทุกชั้น ค่าธรรมเนียม แปลงสกุลเงิน บังคับโควตาต่อวัน และบันทึก audit",
     pre: ["ผ่านการยืนยันตัวตน (JWT หรือ API Key)", "รหัส HTS มีอยู่ในระบบ", "ยังใช้โควตาต่อวันไม่ครบ (กรณีผู้ใช้ล็อกอิน)"],

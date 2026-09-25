@@ -6,43 +6,43 @@
 
 const ACTORS = [
   {
-    icon: "👩‍💻",
+    icon: "developer",
     name: "Developer",
     type: "Human",
     desc: "ผู้ใช้หลัก เขียน prompt สั่งงาน สร้าง/ทบทวน spec รันงาน และตรวจผลลัพธ์ในเอดิเตอร์"
   },
   {
-    icon: "🧭",
+    icon: "reviewer",
     name: "Tech Lead / Reviewer",
     type: "Human",
     desc: "ตรวจ requirement และ design ก่อนลงมือ อนุมัติการเปลี่ยนแปลงในโหมด Supervised"
   },
   {
-    icon: "📋",
+    icon: "product",
     name: "Product Owner / BA",
     type: "Human",
     desc: "ให้ requirement เชิงธุรกิจ ตรวจ spec ว่าตรงกับความต้องการ กำหนด priority"
   },
   {
-    icon: "🛡️",
+    icon: "admin",
     name: "Admin / DevOps",
     type: "Human",
     desc: "ตั้งค่า Steering, MCP, สิทธิ์การใช้งาน และนโยบายอนุมัติของ Agent Hooks"
   },
   {
-    icon: "🤖",
+    icon: "agent",
     name: "Kiro Agent (AI)",
     type: "AI Agent",
     desc: "ผู้กระทำในระบบ อ่านบริบท สร้าง spec/โค้ด รัน task รัน hook และตรวจสอบผลลัพธ์"
   },
   {
-    icon: "☁️",
+    icon: "cloud",
     name: "Amazon Bedrock (Claude)",
     type: "External System",
     desc: "โมเดล LLM ที่ประมวลผลภาษาและสร้างผลลัพธ์ให้ Kiro Agent ผ่าน AWS"
   },
   {
-    icon: "🔌",
+    icon: "plug",
     name: "MCP Server / External Tools",
     type: "External System",
     desc: "ระบบภายนอก เช่น เอกสาร, ฐานข้อมูล, API ที่ Kiro เชื่อมต่อผ่าน Model Context Protocol"
