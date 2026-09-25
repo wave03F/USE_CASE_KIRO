@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kiro Use Cases — Spec-Driven Development ที่ทีมคุณใช้ได้จริง</title>
+<meta name="description" content="รวม Use Case ของ Kiro — Agentic IDE จาก AWS ที่ทำงานบน Claude ผ่าน Amazon Bedrock เน้น Spec-Driven Development สำหรับทีม Dev / QA / Business" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ===== Progress bar ===== -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ===== Nav ===== -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ghostGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#a17bff"/>
+              <stop offset="1" stop-color="#7c5cff"/>
+            </linearGradient>
+            <linearGradient id="wrenchGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffb84d"/>
+              <stop offset="1" stop-color="#ff9900"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#ghostGrad)" d="M30 8c-9.4 0-17 7.6-17 17v24.8c0 2 2.3 3 3.8 1.6l2.6-2.4c.8-.8 2.1-.8 3 0l2.5 2.3c.8.8 2.1.8 3 0l2.5-2.3c.8-.8 2.1-.8 3 0l2.6 2.4c1.5 1.4 3.8.4 3.8-1.6V25c0-9.4-7.6-17-17-17z"/>
+          <ellipse cx="24" cy="26" rx="3.2" ry="4" fill="#0a0c14"/>
+          <ellipse cx="36" cy="26" rx="3.2" ry="4" fill="#0a0c14"/>
+          <circle cx="25.1" cy="24.7" r="1" fill="#fff"/>
+          <circle cx="37.1" cy="24.7" r="1" fill="#fff"/>
+          <path fill="url(#ghostGrad)" d="M42 37c2.8 0 5.6 1.1 7.8 3.1l-3 3.2C45.4 45 43.8 44.6 42 44.6z"/>
+          <g transform="rotate(45 52 47)">
+            <rect x="49.9" y="41" width="4.2" height="16" rx="2.1" fill="url(#wrenchGrad)"/>
+            <path fill="url(#wrenchGrad)" fill-rule="evenodd" d="M52 34.5a7 7 0 0 0-7 7 7 7 0 0 0 4 6.3v-3.4a3.6 3.6 0 1 1 6 0v3.4a7 7 0 0 0 4-6.3 7 7 0 0 0-7-7zm-2.4 4.1h4.8l1.9 2-1.9 2h-4.8l-1.9-2z"/>
+          </g>
+        </svg>
+      </span>
+      <span class="brand-text">Kiro<span class="brand-dot">.</span>UseCases</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#value">คุณค่า</a>
+      <a href="#actors">Actors</a>
+      <a href="#usecases">Use Cases</a>
+      <a href="#diagram">Diagram</a>
+      <a href="#summary">สรุป</a>
+      <a href="#showcase">ตัวอย่างจริง</a>
+      <a href="lab.html">Lab</a>
+      <a href="#getstarted">เริ่มต้น</a>
+    </nav>
+    <a href="lab.html" class="btn btn-primary btn-sm">ลองทำ Lab ฟรี</a>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="top">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <span class="pill">
+      <span class="pill-dot"></span>
+      Agentic IDE จาก AWS · ขับเคลื่อนด้วย Claude บน Amazon Bedrock
+    </span>
+    <h1 class="hero-title">
+      เปลี่ยน <span class="grad-text">ไอเดีย</span> ให้เป็น
+      <span class="grad-text">โค้ดที่ใช้งานได้จริง</span><br />
+      ด้วย Spec-Driven Development
+    </h1>
+    <p class="hero-sub">
+      Kiro คือ Agentic IDE ที่ให้ <b>spec เป็น source of truth</b> และให้โค้ดเป็นเพียง build artifact
+      ช่วยทีม Dev / QA / Business ทำงานบนภาษาเดียวกัน ลดงานซ้ำ ลดข้อผิดพลาด และส่งมอบเร็วขึ้น
+    </p>
+    <div class="hero-cta">
+      <a href="#usecases" class="btn btn-primary">ดู Use Cases ทั้งหมด</a>
+      <a href="#value" class="btn btn-ghost">ทำไมต้อง Kiro ?</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num" data-count="10">0</span><span class="stat-label">Use Cases หลัก</span></div>
+      <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">โหมดการทำงาน</span></div>
+      <div class="stat"><span class="stat-num" data-count="100" data-suffix="%">0</span><span class="stat-label">Traceable ทุก spec</span></div>
+    </div>
+  </div>
+  <div class="brand-strip">
+    <span>ผสานพลังจาก</span>
+    <span class="brand-chip chip-kiro">Kiro</span>
+    <span class="brand-chip chip-aws">AWS</span>
+    <span class="brand-chip chip-com7">Com7</span>
+  </div>
+</section>
+
+<!-- ===== Value props ===== -->
+<section class="section" id="value">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">ทำไมทีมถึงเลือก Kiro</span>
+      <h2>ขายง่ายเพราะเห็นผลจริง ไม่ใช่แค่ autocomplete</h2>
+      <p class="section-desc">Kiro ไม่ได้เป็นแค่ผู้ช่วยเติมโค้ด แต่เป็นเพื่อนร่วมทีมที่เข้าใจ requirement ออกแบบ วางแผนงาน แล้วลงมือทำให้ครบ</p>
+    </div>
+    <div class="grid grid-3">
+      <article class="card value-card">
+        <div class="card-ico ico-spec">◈</div>
+        <h3>Spec คือความจริง</h3>
+        <p>ทุกฟีเจอร์เริ่มจาก requirement → design → tasks เอกsารกับโค้ดไม่มีวันหลุดจากกัน ตรวจสอบย้อนกลับได้ทุกบรรทัด</p>
+      </article>
+      <article class="card value-card">
+        <div class="card-ico ico-auto">⚡</div>
+        <h3>ทำงานอัตโนมัติ</h3>
+        <p>Agent Hooks จุดชนวนงานซ้ำ ๆ ให้เองเมื่อบันทึกไฟล์ สร้างไฟล์ หรือจบ task ทีมโฟกัสงานที่สร้างคุณค่า</p>
+      </article>
+      <article class="card value-card">
+        <div class="card-ico ico-connect">⛓</div>
+        <h3>ต่อกับระบบจริง</h3>
+        <p>MCP เชื่อม Kiro กับ external tools และ data source ขององค์กร ทำงานบนบริบทจริงขององค์กรได้ทันที</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Actors ===== -->
+<section class="section section-alt" id="actors">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">A. ผู้เกี่ยวข้องกับระบบ</span>
+      <h2>Actors</h2>
+      <p class="section-desc">ใครทำอะไรได้บ้างในระบบ Kiro — ทั้งคนและ AI/ระบบภายนอก</p>
+    </div>
+    <div class="grid grid-actors" id="actorGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Use cases ===== -->
+<section class="section" id="usecases">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">B + C. รายการและรายละเอียด Use Case</span>
+      <h2>Use Cases ของ Kiro</h2>
+      <p class="section-desc">คลิกที่การ์ดเพื่อดูรายละเอียดเต็ม — Flow หลัก, Alternative, Exception, Postcondition และ EARS requirement</p>
+    </div>
+
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="grid grid-3" id="ucGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Diagram ===== -->
+<section class="section section-alt" id="diagram">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">D. Use Case Diagram</span>
+      <h2>ความสัมพันธ์ระหว่าง Actor กับ Use Case</h2>
+      <p class="section-desc">อธิบายเป็นภาพ + ระบุความสัมพันธ์ &lt;&lt;include&gt;&gt; และ &lt;&lt;extend&gt;&gt;</p>
+    </div>
+    <div class="diagram-wrap">
+      <div class="diagram-col">
+        <h4 class="diagram-side-title">Actors</h4>
+        <div class="diagram-actors" id="diagramActors"></div>
+      </div>
+      <div class="diagram-col diagram-system">
+        <div class="system-label">ระบบ Kiro</div>
+        <div class="diagram-usecases" id="diagramUsecases"></div>
+      </div>
+    </div>
+    <div class="rel-legend">
+      <div class="rel-item"><span class="rel-tag include">&lt;&lt;include&gt;&gt;</span> "สร้าง Spec" จะ include "จัดทำ Task List" เสมอ</div>
+      <div class="rel-item"><span class="rel-tag extend">&lt;&lt;extend&gt;&gt;</span> "รัน Agent Hook" อาจ extend ด้วย "ขออนุมัติก่อนดำเนินการ" (PreToolUse)</div>
+      <div class="rel-item"><span class="rel-tag include">&lt;&lt;include&gt;&gt;</span> "รัน Task" จะ include "ตรวจสอบผลลัพธ์ (Verify)" ทุกครั้ง</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Summary table ===== -->
+<section class="section" id="summary">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">สรุปท้ายสุด</span>
+      <h2>ตาราง Summary ของ Use Case ทั้งหมด</h2>
+    </div>
+    <div class="table-wrap">
+      <table class="uc-table" id="summaryTable">
+        <thead>
+          <tr><th>ID</th><th>ชื่อ Use Case</th><th>Actor หลัก</th><th>Module</th><th>Priority</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="note-box">
+      <h4>Use Case ที่ยังต้องขอข้อมูลเพิ่มจาก stakeholder</h4>
+      <ul>
+        <li>นโยบายสิทธิ์การใช้งาน (ใครอนุมัติ PreToolUse hook ได้บ้าง) — ต้องยืนยันกับ Security/DevOps</li>
+        <li>รายการ MCP server ขององค์กรที่จะเชื่อม — ต้องได้จากทีม Platform</li>
+        <li>เกณฑ์ Priority จริงของแต่ละ Use Case — ควร sync กับ Product Owner</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Real showcase: system built with Kiro ===== -->
+<section class="section" id="showcase">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">ตัวอย่างจริง · Built with Kiro</span>
+      <h2 id="showcaseTitle"></h2>
+      <p class="section-desc" id="showcaseSub"></p>
+    </div>
+
+    <div class="showcase-intro">
+      <p id="showcaseBlurb"></p>
+      <div class="showcase-stats" id="showcaseStats"></div>
+    </div>
+
+    <div class="filter-bar" id="showcaseFilter"></div>
+    <div class="grid grid-3" id="showcaseGrid"></div>
+
+    <details class="showcase-table-toggle">
+      <summary>ดูตาราง Summary ทั้ง 32 Use Case</summary>
+      <div class="table-wrap" style="margin-top:20px">
+        <table class="uc-table" id="showcaseTable">
+          <thead>
+            <tr><th>ID</th><th>ชื่อ Use Case</th><th>Actor หลัก</th><th>Module</th><th>Priority</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ===== Lab banner ===== -->
+<section class="section" id="lab-banner">
+  <div class="container">
+    <div class="lab-cta-card">
+      <div class="lab-cta-text">
+        <span class="eyebrow">Hands-on Lab · ฟรี</span>
+        <h2>อยากลองเองก่อน? สร้างเว็บจริงใน 30 นาที</h2>
+        <p>ทำตาม Lab ทีละขั้น สร้างเว็บ Pomodoro Timer ด้วย Kiro โดยไม่ต้องเขียนโค้ดเอง เห็นด้วยตาว่า Spec-Driven Development ทำงานยังไง</p>
+        <div class="hero-cta">
+          <a href="lab.html" class="btn btn-primary">เริ่มทำ Lab</a>
+          <a href="preview/index.html" target="_blank" class="btn btn-ghost">ดูผลลัพธ์ที่จะได้</a>
+        </div>
+      </div>
+      <div class="lab-cta-visual" aria-hidden="true">
+        <div class="lab-clock-demo">
+          <span class="lab-clock-time">25:00</span>
+          <span class="lab-clock-sub">🍅 Pomodoro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Get started paths ===== -->
+<section class="section section-alt" id="getstarted">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">สำหรับท่านที่สนใจ</span>
+      <h2>เริ่มต้นใช้งาน Kiro ได้ 2 ทาง</h2>
+      <p class="section-desc">ลองเองฟรีได้ทันที หรือให้ทีมเราช่วยวางระบบระดับองค์กรร่วมกับ AWS และ Com7</p>
+    </div>
+    <div class="grid grid-2 path-grid">
+
+      <article class="card path-card">
+        <span class="path-num">Path 1</span>
+        <h3 class="path-title">Try Quick &amp; Free</h3>
+        <p class="path-tagline">เหมาะกับ Developer และทีมที่อยากลองด้วยตัวเองก่อน</p>
+        <ul class="path-list">
+          <li>สร้าง account ได้ภายในไม่กี่วินาที</li>
+          <li><b>ไม่ต้องใส่บัตรเครดิต</b></li>
+          <li>ทดลอง Spec-Driven Development ได้ทันที</li>
+          <li>เริ่มต้นบน workspace ของคุณเอง</li>
+        </ul>
+        <a href="#top" class="btn btn-primary path-btn">สร้าง account ฟรี</a>
+        <span class="path-note">พร้อมใช้ใน seconds</span>
+      </article>
+
+      <article class="card path-card path-enterprise">
+        <span class="path-num path-num-ent">Path 2</span>
+        <h3 class="path-title">Enterprise Deployment</h3>
+        <p class="path-tagline">เหมาะกับองค์กรที่ต้องการเชื่อมกับระบบที่มีอยู่</p>
+        <ul class="path-list">
+          <li>เชื่อม Kiro เข้ากับ <b>AWS infrastructure</b> ที่มีอยู่</li>
+          <li>ผสานเข้ากับระบบ <b>Com7 business</b> ขององค์กร</li>
+          <li>ตั้งค่า Steering, MCP และนโยบายความปลอดภัยระดับทีม</li>
+          <li>มีทีมผู้เชี่ยวชาญช่วยวางระบบและดูแล</li>
+        </ul>
+        <p class="path-contact-lead">หากสนใจ Enterprise ติดต่อผ่าน <b>AWS</b> และ <b>Com7 Business</b></p>
+        <div class="contact-box">
+          <span class="contact-title">ช่องทางติดต่อ Com7 Business</span>
+          <a class="contact-row" href="mailto:cloudservice@comseven.com">
+            <span class="contact-ico">✉️</span>
+            <span><span class="contact-label">อีเมลบริการระบบ Cloud</span><span class="contact-val">cloudservice@comseven.com</span></span>
+          </a>
+          <a class="contact-row" href="tel:+6620177777">
+            <span class="contact-ico">📞</span>
+            <span><span class="contact-label">โทรศัพท์</span><span class="contact-val">02-017-7777 (ต่อ 7677)</span></span>
+          </a>
+        </div>
+        <a href="mailto:cloudservice@comseven.com" class="btn btn-ghost path-btn">ติดต่อเข้ามาเพื่อพูดคุย</a>
+        <span class="path-note">คุยกับทีม Solution ของ AWS × Com7 Business</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta" id="cta">
+  <div class="container cta-inner">
+    <h2>พร้อมให้ทีมคุณส่งมอบเร็วขึ้นด้วย Kiro แล้วหรือยัง ?</h2>
+    <p>นัดเดโมกับทีมของเรา แล้วดูว่าจาก requirement เดียวจะกลายเป็นฟีเจอร์ที่ทดสอบแล้วได้เร็วแค่ไหน</p>
+    <div class="hero-cta">
+      <a href="#top" class="btn btn-primary">นัดเดโม / ติดต่อทีมขาย</a>
+      <a href="#usecases" class="btn btn-ghost">ทบทวน Use Cases อีกครั้ง</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>© 2026 · Kiro Use Case Showcase</span>
+    <span class="footer-brands">Kiro × AWS × Com7</span>
+  </div>
+</footer>
+
+<!-- ===== Modal ===== -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <button class="modal-close" data-close aria-label="ปิด">×</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="showcase-data.js"></script>
+<script src="app.js"></script>
+<script src="showcase.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pomodoro Timer — ตัวอย่างผลลัพธ์จาก Kiro Lab</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <h1 class="app-title">🍅 Pomodoro</h1>
+
+    <div class="mode-tabs">
+      <button class="mode-tab active" data-mode="focus">โฟกัส</button>
+      <button class="mode-tab" data-mode="break">พัก</button>
+    </div>
+
+    <div class="clock" id="clock">25:00</div>
+    <p class="mode-label" id="modeLabel">ถึงเวลาโฟกัส</p>
+
+    <div class="controls">
+      <button class="btn-main" id="startBtn">Start</button>
+      <button class="btn-secondary" id="resetBtn">Reset</button>
+    </div>
+
+    <p class="rounds">รอบที่ทำเสร็จ: <span id="rounds">0</span> 🍅</p>
+  </main>
+
+  <p class="credit">สร้างด้วย Kiro · Spec-Driven Development Lab</p>
+
+  <script src="app.js"></script>
+</body>
+</html>

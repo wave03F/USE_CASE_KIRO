@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kiro Hands-on Lab — สร้างเว็บ Pomodoro Timer ด้วย Spec-Driven Development</title>
+<meta name="description" content="Lab สอนใช้ Kiro แบบลงมือทำจริง สร้างเว็บ Pomodoro Timer จาก Spec → Design → Tasks → Code ภายใน 30-45 นาที" />
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="lab.css" />
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ===== Nav ===== -->
+<header class="nav scrolled" id="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ghostGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#a17bff"/><stop offset="1" stop-color="#7c5cff"/>
+            </linearGradient>
+            <linearGradient id="wrenchGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffb84d"/><stop offset="1" stop-color="#ff9900"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#ghostGrad)" d="M30 8c-9.4 0-17 7.6-17 17v24.8c0 2 2.3 3 3.8 1.6l2.6-2.4c.8-.8 2.1-.8 3 0l2.5 2.3c.8.8 2.1.8 3 0l2.5-2.3c.8-.8 2.1-.8 3 0l2.6 2.4c1.5 1.4 3.8.4 3.8-1.6V25c0-9.4-7.6-17-17-17z"/>
+          <ellipse cx="24" cy="26" rx="3.2" ry="4" fill="#0a0c14"/>
+          <ellipse cx="36" cy="26" rx="3.2" ry="4" fill="#0a0c14"/>
+          <circle cx="25.1" cy="24.7" r="1" fill="#fff"/>
+          <circle cx="37.1" cy="24.7" r="1" fill="#fff"/>
+          <path fill="url(#ghostGrad)" d="M42 37c2.8 0 5.6 1.1 7.8 3.1l-3 3.2C45.4 45 43.8 44.6 42 44.6z"/>
+          <g transform="rotate(45 52 47)">
+            <rect x="49.9" y="41" width="4.2" height="16" rx="2.1" fill="url(#wrenchGrad)"/>
+            <path fill="url(#wrenchGrad)" fill-rule="evenodd" d="M52 34.5a7 7 0 0 0-7 7 7 7 0 0 0 4 6.3v-3.4a3.6 3.6 0 1 1 6 0v3.4a7 7 0 0 0 4-6.3 7 7 0 0 0-7-7zm-2.4 4.1h4.8l1.9 2-1.9 2h-4.8l-1.9-2z"/>
+          </g>
+        </svg>
+      </span>
+      <span class="brand-text">Kiro<span class="brand-dot">.</span>Lab</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#steps">ขั้นตอน</a>
+      <a href="#prereq">เตรียมตัว</a>
+      <a href="#bonus">โจทย์ต่อยอด</a>
+      <a href="index.html">← กลับหน้าหลัก</a>
+    </nav>
+    <a href="preview/index.html" target="_blank" class="btn btn-primary btn-sm">ดูผลลัพธ์ที่ควรได้</a>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero lab-hero" id="top">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <span class="pill"><span class="pill-dot"></span> Hands-on Lab · ระดับเริ่มต้น · ~30-45 นาที</span>
+    <h1 class="hero-title">
+      สร้างเว็บ <span class="grad-text">Pomodoro Timer</span><br />
+      ด้วย Kiro แบบ Spec-Driven
+    </h1>
+    <p class="hero-sub">
+      Lab นี้ให้คุณลงมือทำจริงตั้งแต่ต้นจนจบ ไม่ต้องเขียนโค้ดเอง แค่คุยกับ Kiro เป็นภาษาคน
+      คุณจะได้เห็นวิธีเปลี่ยนไอเดียเป็น spec แล้วให้ Kiro สร้างโค้ดที่ทำงานได้จริง
+    </p>
+    <div class="hero-cta">
+      <a href="#steps" class="btn btn-primary">เริ่ม Lab</a>
+      <a href="preview/index.html" target="_blank" class="btn btn-ghost">เปิดดูผลลัพธ์ตัวอย่าง</a>
+    </div>
+    <div class="lab-goal">
+      <div class="lab-goal-item"><span class="lab-goal-ico">🎯</span> ได้เว็บ Pomodoro ที่ใช้ได้จริง</div>
+      <div class="lab-goal-item"><span class="lab-goal-ico">🧠</span> เข้าใจ workflow ของ Kiro</div>
+      <div class="lab-goal-item"><span class="lab-goal-ico">⌨️</span> เขียนโค้ดเองน้อยที่สุด</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== What is Pomodoro ===== -->
+<section class="section" id="what">
+  <div class="container narrow">
+    <div class="callout">
+      <h3>🍅 โจทย์ของเรา: Pomodoro Timer คืออะไร?</h3>
+      <p>
+        เทคนิค Pomodoro คือการโฟกัสงาน 25 นาที แล้วพัก 5 นาที สลับกันไป
+        เว็บที่เราจะสร้างมีปุ่ม Start / Pause / Reset, นับถอยหลังบนหน้าจอ, สลับโหมดโฟกัส/พักอัตโนมัติ
+        และมีเสียงเตือนเมื่อหมดเวลา โจทย์เล็กแต่ครบองค์ประกอบของเว็บแอปจริง
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Prerequisites ===== -->
+<section class="section section-alt" id="prereq">
+  <div class="container narrow">
+    <div class="section-head left">
+      <span class="eyebrow">ก่อนเริ่ม</span>
+      <h2>เตรียมตัว 3 อย่าง</h2>
+    </div>
+    <ol class="prep-list">
+      <li><b>ติดตั้ง Kiro</b> — เปิด Kiro IDE ขึ้นมาให้พร้อม (ถ้ายังไม่มี ดูวิธีสมัครฟรีที่หน้าหลัก)</li>
+      <li><b>สร้างโฟลเดอร์ว่าง</b> — เช่น <code>pomodoro-lab</code> แล้วเปิดเป็น workspace ใน Kiro</li>
+      <li><b>เปิด Chat ของ Kiro</b> — เราจะพิมพ์คุยกับ Kiro ทั้งหมดจากตรงนี้ ไม่ต้องเปิดไฟล์เขียนเอง</li>
+    </ol>
+    <div class="tip">
+      <span class="tip-badge">เคล็ดลับ</span>
+      แต่ละขั้นตอนมีปุ่ม <b>คัดลอก prompt</b> ให้กดแล้ววางใน Chat ของ Kiro ได้เลย ปรับแก้คำได้ตามใจ
+    </div>
+  </div>
+</section>
+
+<!-- ===== Steps ===== -->
+<section class="section" id="steps">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">ลงมือทำ</span>
+      <h2>6 ขั้นตอน จากไอเดีย → เว็บที่รันได้</h2>
+      <p class="section-desc">ทำตามทีละขั้น กดคัดลอก prompt วางใน Kiro แล้วดูมันทำงาน</p>
+    </div>
+
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- ===== Bonus ===== -->
+<section class="section section-alt" id="bonus">
+  <div class="container narrow">
+    <div class="section-head left">
+      <span class="eyebrow">อยากท้าทายต่อ</span>
+      <h2>โจทย์ต่อยอด (Bonus)</h2>
+      <p class="section-desc">ลองสั่ง Kiro เพิ่มฟีเจอร์เหล่านี้ เพื่อดูว่ามันต่อยอดจาก spec เดิมได้เร็วแค่ไหน</p>
+    </div>
+    <div class="grid grid-2 bonus-grid" id="bonusGrid"></div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta">
+  <div class="container cta-inner">
+    <h2>ชอบ Lab นี้ไหม? นี่คือแค่จุดเริ่มต้น</h2>
+    <p>ลองนึกภาพทีมคุณสร้างระบบจริงระดับองค์กรด้วยวิธีเดียวกันนี้ — เริ่มฟรีได้เลย หรือคุยกับทีมเรา</p>
+    <div class="hero-cta">
+      <a href="index.html#getstarted" class="btn btn-primary">ดูทางเลือกเริ่มต้นใช้งาน</a>
+      <a href="index.html#showcase" class="btn btn-ghost">ดูตัวอย่างระบบจริง</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>© 2026 · Kiro Hands-on Lab</span>
+    <span class="footer-brands">Kiro × AWS × Com7</span>
+  </div>
+</footer>
+
+<!-- toast -->
+<div class="toast" id="toast">คัดลอกแล้ว ✓</div>
+
+<script src="lab.js"></script>
+</body>
+</html>
