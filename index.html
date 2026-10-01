@@ -45,42 +45,66 @@
       <a href="lab.html">Lab</a>
       <a href="#getstarted">เริ่มต้น</a>
     </nav>
-    <a href="lab.html" class="btn btn-primary btn-sm">ลองทำ Lab ฟรี</a>
+    <div class="nav-actions">
+      <a href="lab.html" class="btn btn-ghost btn-sm">ลองทำ Lab</a>
+      <a href="https://kiro.dev/" target="_blank" rel="noopener" class="btn btn-primary btn-sm">เริ่มใช้ฟรี</a>
+    </div>
   </div>
 </header>
 
 <!-- ===== Hero ===== -->
 <section class="hero" id="top">
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="container hero-inner">
-    <span class="pill">
-      <span class="pill-dot"></span>
-      Agentic IDE จาก AWS · ขับเคลื่อนด้วย Claude บน Amazon Bedrock
-    </span>
-    <h1 class="hero-title">
-      เปลี่ยน <span class="grad-text">ไอเดีย</span> ให้เป็น
-      <span class="grad-text">โค้ดที่ใช้งานได้จริง</span><br />
-      ด้วย Spec-Driven Development
-    </h1>
-    <p class="hero-sub">
-      Kiro คือ Agentic IDE ที่ให้ <b>spec เป็น source of truth</b> และให้โค้ดเป็นเพียง build artifact
-      ช่วยทีม Dev / QA / Business ทำงานบนภาษาเดียวกัน ลดงานซ้ำ ลดข้อผิดพลาด และส่งมอบเร็วขึ้น
-    </p>
-    <div class="hero-cta">
-      <a href="#usecases" class="btn btn-primary">ดู Use Cases ทั้งหมด</a>
-      <a href="#value" class="btn btn-ghost">ทำไมต้อง Kiro ?</a>
+  <div class="container hero-grid">
+    <div class="hero-main">
+      <span class="pill">
+        <span class="pill-dot"></span>
+        Agentic IDE จาก AWS · ขับเคลื่อนด้วย Claude บน Amazon Bedrock
+      </span>
+      <h1 class="hero-title">
+        เปลี่ยน <span class="grad-text">ไอเดีย</span><br />
+        ให้เป็น <span class="grad-text">โค้ดที่ใช้งานได้จริง</span>
+      </h1>
+      <p class="hero-sub">
+        Kiro คือ Agentic IDE ที่ให้ <b>spec เป็น source of truth</b> และให้โค้ดเป็นเพียง build artifact
+        ช่วยทีม Dev / QA / Business ทำงานบนภาษาเดียวกัน ลดงานซ้ำ ลดข้อผิดพลาด และส่งมอบเร็วขึ้น
+      </p>
+      <div class="hero-cta">
+        <a href="#usecases" class="btn btn-primary">ดู Use Cases ทั้งหมด</a>
+        <a href="#value" class="btn btn-ghost">ทำไมต้อง Kiro ?</a>
+      </div>
     </div>
+
+    <aside class="hero-aside">
+      <div class="whatsnew">
+        <span class="whatsnew-label"><span class="wn-dot"></span> มีอะไรใหม่</span>
+        <a href="lab.html" class="wn-item">
+          <h4>7 Hands-on Labs</h4>
+          <p>ลงมือทำจริงกับ Kiro ตั้งแต่ Pomodoro ถึง REST API</p>
+        </a>
+        <a href="#showcase" class="wn-item">
+          <h4>ระบบจริง 33 Use Cases</h4>
+          <p>ดูตัวอย่างระบบ production ที่สร้างด้วย Kiro</p>
+        </a>
+        <a href="https://kiro.dev/" target="_blank" rel="noopener" class="wn-item">
+          <h4>เริ่มใช้ Kiro ฟรี</h4>
+          <p>สมัครได้ในไม่กี่วินาที ไม่ต้องใส่บัตร</p>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="container">
     <div class="hero-stats">
       <div class="stat"><span class="stat-num" data-count="10">0</span><span class="stat-label">Use Cases หลัก</span></div>
       <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">โหมดการทำงาน</span></div>
       <div class="stat"><span class="stat-num" data-count="100" data-suffix="%">0</span><span class="stat-label">Traceable ทุก spec</span></div>
     </div>
-  </div>
-  <div class="brand-strip">
-    <span>ผสานพลังจาก</span>
-    <span class="brand-chip chip-kiro">Kiro</span>
-    <span class="brand-chip chip-aws">AWS</span>
-    <span class="brand-chip chip-com7">Com7</span>
+    <div class="brand-strip">
+      <span>ผสานพลังจาก</span>
+      <span class="brand-chip chip-kiro">Kiro</span>
+      <span class="brand-chip chip-aws">AWS</span>
+      <span class="brand-chip chip-com7">Com7</span>
+    </div>
   </div>
 </section>
 
@@ -208,7 +232,7 @@
     <div class="grid grid-3" id="showcaseGrid"></div>
 
     <details class="showcase-table-toggle">
-      <summary>ดูตาราง Summary ทั้ง 32 Use Case</summary>
+      <summary>ดูตาราง Summary ทั้ง 33 Use Case</summary>
       <div class="table-wrap" style="margin-top:20px">
         <table class="uc-table" id="showcaseTable">
           <thead>
@@ -227,8 +251,8 @@
     <div class="lab-cta-card">
       <div class="lab-cta-text">
         <span class="eyebrow">Hands-on Labs · ฟรี</span>
-        <h2>อยากลองเองก่อน? เลือกได้ 6 Lab</h2>
-        <p>ตั้งแต่ Pomodoro Timer, To-Do List, Landing Page, เกม Quiz ไปจนถึง REST API ทำตามทีละขั้นด้วย Kiro โดยไม่ต้องเขียนโค้ดเอง เห็นด้วยตาว่า Spec-Driven Development ทำงานยังไง</p>
+        <h2>อยากลองเองก่อน? เลือกได้ 7 Lab</h2>
+        <p>ตั้งแต่ Pomodoro Timer, To-Do List, Landing Page, เกม Quiz, Markdown Note ไปจนถึง REST API ทำตามทีละขั้นด้วย Kiro โดยไม่ต้องเขียนโค้ดเอง เห็นด้วยตาว่า Spec-Driven Development ทำงานยังไง</p>
         <div class="hero-cta">
           <a href="lab.html" class="btn btn-primary">ดู Labs ทั้งหมด</a>
           <a href="lab.html?lab=pomodoro" class="btn btn-ghost">เริ่มจาก Pomodoro</a>

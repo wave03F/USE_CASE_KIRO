@@ -1,7 +1,7 @@
 /* ============================================================
    ตัวอย่างจริง: ระบบที่สร้างด้วย Kiro
    Cross-Border Trade Compliance & Landed-Cost Engine
-   ถอดจาก USE_CASES.md (v3.1) — 32 Use Case ยืนยันจากโค้ดจริง
+   ถอดจาก USE_CASES.md (v3.1) — 33 Use Case ยืนยันจากโค้ดจริง
    ============================================================ */
 
 const SHOWCASE_META = {
@@ -12,7 +12,7 @@ const SHOWCASE_META = {
     "จัดการ stacking/mutual-exclusion, แปลงสกุลเงิน, และเก็บ audit trail แบบ immutable " +
     "จากงานที่เคยเปิด Excel ไล่หาอัตราภาษี 15–20 นาที เหลือเสี้ยววินาที",
   stats: [
-    { num: 32, label: "Use Cases จากโค้ดจริง" },
+    { num: 33, label: "Use Cases จากโค้ดจริง" },
     { num: 9, label: "Modules" },
     { num: 105, label: "Tests ผ่านทั้งหมด", suffix: "" }
   ]

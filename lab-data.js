@@ -279,8 +279,54 @@ const LABS = {
       { ico: "sliders", title: "ระดับความยาก", text: "เพิ่มโหมดง่าย/ยาก ที่ปรับเวลาต่อข้อและจำนวนข้อ" },
       { ico: "bell", title: "สุ่มลำดับคำถาม", text: "สุ่มลำดับคำถามและตัวเลือกทุกครั้งที่เล่นใหม่" }
     ]
+  },
+
+  /* ---------- 7) Markdown Note ---------- */
+  markdown: {
+    icon: "spec",
+    level: "ระดับกลาง",
+    tag: "เครื่องมือ Dev",
+    time: "35-50 นาที",
+    title: "Markdown Note (Live Preview)",
+    tagline: "เขียน Markdown ฝั่งซ้าย เห็นผลลัพธ์เรนเดอร์ฝั่งขวาทันที",
+    intro:
+      "แอปจดโน้ตที่พิมพ์ Markdown แล้วเห็นผลเรนเดอร์แบบเรียลไทม์ ครอบคลุมแนวคิดการแปลงข้อความ (parsing), " +
+      "การอัปเดต DOM แบบ live, บันทึกอัตโนมัติใน localStorage และ export เป็นไฟล์ เป็นเครื่องมือที่นักพัฒนาใช้งานจริง",
+    preview: null,
+    steps: [
+      { tag: "Spec", title: "อธิบายแอป Markdown ที่อยากได้",
+        desc: "บอก Kiro ว่าแอปรับอะไรและแสดงผลยังไง ให้มันแปลงเป็น requirements",
+        prompt: "อยากได้เว็บ Markdown Note แบบ single page (HTML/CSS/JS ล้วน)\nความสามารถ:\n- แบ่งหน้าจอ 2 ฝั่ง: ซ้ายพิมพ์ Markdown, ขวาแสดงผลที่เรนเดอร์แล้ว\n- รองรับ heading, ตัวหนา/เอียง, ลิสต์, ลิงก์, โค้ด และ blockquote\n- อัปเดตฝั่งขวาแบบเรียลไทม์ขณะพิมพ์\n- บันทึกอัตโนมัติใน localStorage ให้ไม่หายเมื่อรีเฟรช\n- ปุ่ม export เป็นไฟล์ .md\nช่วยสร้าง spec (requirements) ให้ก่อน ยังไม่ต้องเขียนโค้ด",
+        expect: "Kiro สร้าง requirements ครอบคลุมการเรนเดอร์ real-time และ autosave พร้อมถามยืนยัน" },
+      { tag: "Design", title: "ออกแบบวิธีแปลงและเลย์เอาต์",
+        desc: "ให้ Kiro วางว่าจะแปลง Markdown ยังไง และจัดหน้าจอสองฝั่งแบบไหน",
+        prompt: "requirements โอเค ช่วยทำ design ต่อ\nแยกเป็น index.html, styles.css, app.js\nอธิบายว่าจะแปลง Markdown เป็น HTML ยังไง (เขียน parser เองแบบง่าย หรือใช้ regex), จัดเลย์เอาต์ split-pane ยังไง และ debounce การอัปเดต/บันทึกยังไง",
+        expect: "Kiro อธิบายวิธี parse + เลย์เอาต์ split-pane + กลยุทธ์ debounce" },
+      { tag: "Tasks", title: "แตกงานเป็นขั้น ๆ",
+        desc: "ให้ Kiro เรียงงานจากง่ายไปยาก",
+        prompt: "ช่วยแตกเป็น task list\nเริ่มจากเลย์เอาต์ 2 ฝั่ง → ตัวแปลง Markdown พื้นฐาน → เรนเดอร์เรียลไทม์ → autosave localStorage → ปุ่ม export .md",
+        expect: "Kiro สร้าง task list เรียงลำดับให้ทำทีละขั้น" },
+      { tag: "Code", title: "ให้ Kiro สร้างจริง",
+        desc: "สั่งทำทีละ task Kiro จะเขียนและตรวจให้",
+        prompt: "เริ่มทำทีละ task จนครบ ทำเสร็จแต่ละอันช่วยบอกว่าแก้ไฟล์ไหน\nใส่ข้อความ Markdown ตัวอย่างให้ตอนเปิดครั้งแรกด้วย",
+        expect: "ได้แอป Markdown ที่พิมพ์แล้วเห็นผลทันที บันทึกเอง และ export ได้" },
+      { tag: "Steering", title: "ตั้งมาตรฐานให้ Kiro จำ",
+        desc: "ลองตั้งกฎเล็ก ๆ ที่ Kiro จะจำไว้ใช้",
+        prompt: "สร้าง steering ที่บอกว่า:\n- แยกฟังก์ชัน parse ออกจากฟังก์ชันจัดการ DOM เสมอ\n- โค้ดบล็อกในผลลัพธ์ใช้พื้นหลังเข้มและฟอนต์ monospace\nแล้วปรับแอปให้ตรงกฎ",
+        expect: "Kiro บันทึก steering และปรับโค้ดให้เข้ามาตรฐาน" },
+      { tag: "Hook", title: "อัตโนมัติเมื่อบันทึกไฟล์",
+        desc: "ตั้ง hook ตรวจคุณภาพโค้ดอัตโนมัติ",
+        prompt: "สร้าง Agent Hook ที่พอผมบันทึกไฟล์ .js ให้ช่วยตรวจว่าฟังก์ชัน parse จัดการ input ว่าง (string ว่าง) ได้ถูกต้องไหม แล้วเตือนถ้ายังไม่กัน",
+        expect: "Kiro สร้าง hook ตรวจ edge case ทุกครั้งที่บันทึก .js" }
+    ],
+    bonus: [
+      { ico: "moon", title: "โหมดมืด/สว่าง", text: "เพิ่มปุ่มสลับธีมของทั้งตัวแก้ไขและผลลัพธ์" },
+      { ico: "chart", title: "นับคำและเวลาอ่าน", text: "แสดงจำนวนคำและเวลาอ่านโดยประมาณ" },
+      { ico: "target", title: "รองรับตาราง", text: "เพิ่มการแปลงตาราง Markdown เป็น HTML table" },
+      { ico: "bell", title: "ดาวน์โหลดเป็น HTML", text: "เพิ่มปุ่ม export ผลลัพธ์เป็นไฟล์ .html" }
+    ]
   }
 };
 
 /* ลำดับการแสดงในหน้า catalog */
-const LAB_ORDER = ["pomodoro", "todo", "landing", "tip", "api", "quiz"];
+const LAB_ORDER = ["pomodoro", "todo", "landing", "tip", "api", "quiz", "markdown"];
