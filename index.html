@@ -106,6 +106,57 @@
       <span class="brand-chip chip-com7">Com7</span>
     </div>
   </div>
+
+  <!-- IDE mockup -->
+  <div class="container">
+    <div class="ide-mock" aria-hidden="true">
+      <div class="ide-bar">
+        <span class="ide-dots"><i></i><i></i><i></i></span>
+        <span class="ide-title">Kiro — pomodoro-lab</span>
+        <span class="ide-badge">Spec session · Autopilot</span>
+      </div>
+      <div class="ide-body">
+        <aside class="ide-side">
+          <div class="ide-side-head">EXPLORER</div>
+          <div class="ide-tree">
+            <span class="ide-folder">.kiro / specs</span>
+            <span class="ide-file active">requirements.md</span>
+            <span class="ide-file">design.md</span>
+            <span class="ide-file">tasks.md</span>
+            <span class="ide-folder mt">src</span>
+            <span class="ide-file">index.html</span>
+            <span class="ide-file">app.js</span>
+          </div>
+        </aside>
+        <section class="ide-editor">
+          <div class="ide-tabs"><span class="ide-tab active">requirements.md</span><span class="ide-tab">app.js</span></div>
+          <pre class="ide-code"><span class="l"><span class="c-h"># Requirements — Pomodoro Timer</span></span>
+<span class="l"></span>
+<span class="l"><span class="c-k">## R1</span> นับถอยหลังโหมดโฟกัส 25 นาที</span>
+<span class="l"><span class="c-m">WHEN</span> ผู้ใช้กด Start <span class="c-m">THE SYSTEM SHALL</span></span>
+<span class="l">  เริ่มนับถอยหลังจากเวลาที่ตั้งไว้</span>
+<span class="l"></span>
+<span class="l"><span class="c-k">## R2</span> สลับโหมดอัตโนมัติเมื่อหมดเวลา</span>
+<span class="l"><span class="c-m">WHEN</span> เวลาถึง 0 <span class="c-m">THE SYSTEM SHALL</span></span>
+<span class="l">  สลับโหมดและเล่นเสียงเตือน</span>
+<span class="l"></span>
+<span class="l"><span class="c-k">## R3</span> นับจำนวนรอบที่ทำเสร็จ <span class="cursor"></span></span></pre>
+        </section>
+        <aside class="ide-chat">
+          <div class="ide-chat-head"><span class="ide-ghost" data-icon="agent"></span> Kiro</div>
+          <div class="ide-msg ide-msg-user">สร้างเว็บ Pomodoro Timer จับเวลา 25/5 นาที มีเสียงเตือน</div>
+          <div class="ide-msg ide-msg-ai">
+            สร้าง spec ให้แล้ว แยกเป็น requirements → design → tasks
+            <span class="ide-steps">
+              <span class="ide-step done" data-icon="check">Requirements</span>
+              <span class="ide-step done" data-icon="check">Design</span>
+              <span class="ide-step run">Tasks · กำลังสร้าง…</span>
+            </span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ===== Value props ===== -->
