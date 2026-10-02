@@ -86,6 +86,11 @@
         <a href="#usecases" class="btn btn-primary">ดู Use Cases ทั้งหมด</a>
         <a href="#value" class="btn btn-ghost">ทำไมต้อง Kiro ?</a>
       </div>
+      <div class="install-bar">
+        <span class="install-label">ติดตั้ง CLI</span>
+        <code class="install-code" id="installCode"><span class="prmpt">$</span> curl -fsSL https://cli.kiro.dev/install | bash</code>
+        <button class="install-copy" id="installCopy" type="button"><span data-icon="check" style="display:none"></span>คัดลอก</button>
+      </div>
     </div>
 
     <aside class="hero-aside">
@@ -173,6 +178,19 @@
   </div>
 </section>
 
+<!-- ===== Trust strip ===== -->
+<section class="trust">
+  <div class="container">
+    <p class="trust-head">ทีมและนักพัฒนาทั่วโลกใช้ Kiro ส่งมอบงานเร็วขึ้น</p>
+    <div class="trust-stats">
+      <div class="trust-stat"><div class="trust-num">วัน</div><div class="trust-lbl">จากสัปดาห์ เหลือวัน</div></div>
+      <div class="trust-stat"><div class="trust-num">100%</div><div class="trust-lbl">ทุก spec ตรวจย้อนกลับได้</div></div>
+      <div class="trust-stat"><div class="trust-num">24/7</div><div class="trust-lbl">Agent ทำงานเบื้องหลัง</div></div>
+      <div class="trust-stat"><div class="trust-num">5+</div><div class="trust-lbl">โมเดล AI ให้เลือก</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== Value props ===== -->
 <section class="section" id="value">
   <div class="container">
@@ -201,8 +219,26 @@
   </div>
 </section>
 
+<!-- ===== Powered by models ===== -->
+<section class="section section-alt" id="models">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">ขับเคลื่อนด้วยโมเดลชั้นนำ</span>
+      <h2>เลือกโมเดลที่ใช่สำหรับทุกงาน</h2>
+      <p class="section-desc">Kiro รองรับหลายโมเดล เลือกเองได้ตามความซับซ้อนของงาน หรือให้ Auto เลือกให้อัตโนมัติโดยชั่งน้ำหนักคุณภาพ ความเร็ว และต้นทุน</p>
+    </div>
+    <div class="models-row">
+      <span class="model-chip"><span class="dot" style="background:#d97757"></span> Anthropic Claude</span>
+      <span class="model-chip"><span class="dot" style="background:#10a37f"></span> OpenAI GPT</span>
+      <span class="model-chip"><span class="dot" style="background:#4d6bfe"></span> DeepSeek</span>
+      <span class="model-chip"><span class="dot" style="background:#615ced"></span> Qwen</span>
+      <span class="model-chip auto"><span class="dot" style="background:#a17bff"></span> Auto — เลือกให้อัตโนมัติ</span>
+    </div>
+  </div>
+</section>
+
 <!-- ===== Actors ===== -->
-<section class="section section-alt" id="actors">
+<section class="section" id="actors">
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">A. ผู้เกี่ยวข้องกับระบบ</span>
@@ -307,6 +343,93 @@
         </table>
       </div>
     </details>
+  </div>
+</section>
+
+<!-- ===== Testimonials ===== -->
+<section class="section section-alt" id="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">เสียงจากผู้ใช้จริง</span>
+      <h2>ทีมทั่วโลกไว้วางใจ Kiro</h2>
+      <p class="section-desc">จากต้นแบบสู่ production — Spec-Driven Development ช่วยลดเวลาส่งมอบจากสัปดาห์เหลือวัน</p>
+    </div>
+    <div class="tst-grid">
+      <article class="tst-card">
+        <p class="tst-quote">"ในฐานะ CTO เวลาคือทรัพยากรที่สำคัญที่สุด Kiro ทำให้การลงทุนเวลาพัฒนาสินทรัพย์หลักของธุรกิจเองคุ้มค่า"</p>
+        <div class="tst-who"><span class="tst-avatar">RK</span><span><span class="tst-name">Rolf Koski</span><span class="tst-role">CTO &amp; Co-Founder</span></span></div>
+      </article>
+      <article class="tst-card">
+        <p class="tst-quote">"Spec-driven development กับ Kiro ยกระดับคุณภาพโค้ดไปอีกขั้น เราเร่งการพัฒนาฟีเจอร์ ลดเวลาถึงมือลูกค้าจากสัปดาห์เหลือเพียงไม่กี่วัน"</p>
+        <div class="tst-who"><span class="tst-avatar">HD</span><span><span class="tst-name">Håkon E. Drange</span><span class="tst-role">Principal Cloud Architect</span></span></div>
+      </article>
+      <article class="tst-card">
+        <p class="tst-quote">"Kiro เป็นพันธมิตรที่แข็งแกร่งของสตาร์ทอัพ มันเปลี่ยนเอกสารและ spec ที่มักถูกมองข้ามให้เป็นสินทรัพย์ที่พร้อมต่อยอด"</p>
+        <div class="tst-who"><span class="tst-avatar">KI</span><span><span class="tst-name">Kento Ikeda</span><span class="tst-role">Founder &amp; Engineer</span></span></div>
+      </article>
+      <article class="tst-card">
+        <p class="tst-quote">"ประทับใจมาก ประสบการณ์แบบ agentic เปลี่ยนวิธีทำงานไปเลย ตั้งแต่เข้าใจบริบทไปจนถึงคุมทั้ง lifecycle ในตัว IDE เหมือนทำงานกับ senior dev"</p>
+        <div class="tst-who"><span class="tst-avatar">AM</span><span><span class="tst-name">Adit Modi</span><span class="tst-role">Solution Architect</span></span></div>
+      </article>
+      <article class="tst-card">
+        <p class="tst-quote">"เครื่องมือทั่วไปเก่งแค่ generate โค้ด แต่ Kiro จัดระเบียบความวุ่นวายให้ก่อนที่คุณจะเขียนโค้ดบรรทัดแรกด้วยซ้ำ"</p>
+        <div class="tst-who"><span class="tst-avatar">AM</span><span><span class="tst-name">Adit Modi</span><span class="tst-role">Solution Architect</span></span></div>
+      </article>
+      <article class="tst-card">
+        <p class="tst-quote">"สองวันผมสร้างแอปแชร์ไฟล์ที่ปลอดภัยจากศูนย์ แค่บอก requirement ให้ Kiro ก็ได้แอปที่มี encryption และ security practice ครบ โดยไม่ต้อง prompt เพิ่ม"</p>
+        <div class="tst-who"><span class="tst-avatar">AM</span><span><span class="tst-name">Adit Modi</span><span class="tst-role">Solution Architect</span></span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Pricing ===== -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">ราคาที่คาดเดาได้</span>
+      <h2>จ่ายตามที่ใช้ ไม่มีบิลเซอร์ไพรส์</h2>
+      <p class="section-desc">Kiro ใช้ระบบเครดิต ไม่มีลิมิตรายวัน/รายสัปดาห์ จ่ายล่วงหน้าเมื่อใช้เกิน โค้ดได้ลื่นไหลไม่สะดุด</p>
+    </div>
+    <div class="price-grid">
+      <article class="price-card">
+        <div class="price-name">Free</div>
+        <div class="price-amt">฿0</div>
+        <p class="price-desc">เริ่มลองด้วยตัวเอง เหมาะกับนักพัฒนาเดี่ยว</p>
+        <ul class="price-list">
+          <li>Spec-Driven Development ครบ</li>
+          <li>Agent Hooks และ MCP</li>
+          <li>เครดิตเริ่มต้นให้ทดลอง</li>
+        </ul>
+        <a href="https://kiro.dev/pricing" target="_blank" rel="noopener" class="btn btn-ghost price-btn">เริ่มฟรี</a>
+      </article>
+      <article class="price-card featured">
+        <span class="price-flag">แนะนำสำหรับทีม</span>
+        <div class="price-name">Pro</div>
+        <div class="price-amt">เครดิต <span>/ ตามใช้งาน</span></div>
+        <p class="price-desc">สำหรับทีมที่ส่งมอบต่อเนื่อง ไม่มี rate limit รายวัน</p>
+        <ul class="price-list">
+          <li>ทุกอย่างใน Free</li>
+          <li>ไม่มีลิมิตรายวัน/สัปดาห์</li>
+          <li>Parallel agents สำหรับ codebase ใหญ่</li>
+          <li>เลือกโมเดลได้ทุกตัว รวม Auto</li>
+        </ul>
+        <a href="https://kiro.dev/pricing" target="_blank" rel="noopener" class="btn btn-primary price-btn">ดูแพ็กเกจ</a>
+      </article>
+      <article class="price-card">
+        <div class="price-name">Enterprise</div>
+        <div class="price-amt">ติดต่อเรา</div>
+        <p class="price-desc">วางระบบร่วมกับ AWS และ Com7 Business ขององค์กร</p>
+        <ul class="price-list">
+          <li>ทุกอย่างใน Pro</li>
+          <li>เชื่อม AWS infrastructure เดิม</li>
+          <li>นโยบายความปลอดภัยระดับทีม</li>
+          <li>ทีมผู้เชี่ยวชาญดูแล</li>
+        </ul>
+        <a href="mailto:cloudservice@comseven.com?subject=สนใจ Kiro Enterprise" class="btn btn-ghost price-btn">ติดต่อทีมขาย</a>
+      </article>
+    </div>
+    <p class="price-note">* ราคาจริงอ้างอิงจากหน้า Pricing ของ Kiro — กดปุ่มเพื่อดูรายละเอียดล่าสุด</p>
   </div>
 </section>
 

@@ -227,4 +227,25 @@
       }
     });
   });
+
+  /* ---------- Install CLI copy ---------- */
+  const installCopy = document.getElementById("installCopy");
+  if (installCopy) {
+    const cmd = "curl -fsSL https://cli.kiro.dev/install | bash";
+    installCopy.addEventListener("click", function () {
+      const done = function () {
+        installCopy.innerHTML = icon("check", "ic-sm") + "คัดลอกแล้ว";
+        setTimeout(function () { installCopy.textContent = "คัดลอก"; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cmd).then(done).catch(done);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = cmd; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta); done();
+      }
+    });
+  }
 })();
