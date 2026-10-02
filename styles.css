@@ -413,12 +413,21 @@ h1, h2, h3, h4, .brand-text, .stat-num, .hero-title {
 .showcase-table-toggle summary {
   cursor: pointer; padding: 14px 20px; border-radius: var(--radius-sm);
   background: var(--surface); border: 1px solid var(--border-strong); color: var(--text);
-  font-weight: 600; font-size: 0.95rem; list-style: none; text-align: center;
-  transition: background 0.2s;
+  font-weight: 600; font-size: 0.95rem; list-style: none;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: background 0.2s, border-color 0.2s;
 }
-.showcase-table-toggle summary:hover { background: var(--surface-2); }
+.showcase-table-toggle summary:hover { background: var(--surface-2); border-color: var(--kiro-1); }
 .showcase-table-toggle summary::-webkit-details-marker { display: none; }
-.showcase-table-toggle[open] summary { border-color: var(--kiro-1); }
+.showcase-table-toggle summary::marker { content: ""; }
+/* ลูกศรบอกสถานะเปิด/ปิด */
+.showcase-table-toggle summary::after {
+  content: ""; width: 9px; height: 9px; border-right: 2px solid var(--kiro-2);
+  border-bottom: 2px solid var(--kiro-2); transform: rotate(45deg); transition: transform 0.25s;
+  margin-top: -4px;
+}
+.showcase-table-toggle[open] summary::after { transform: rotate(-135deg); margin-top: 2px; }
+.showcase-table-toggle[open] summary { border-color: var(--kiro-1); background: var(--surface-2); }
 .modal-empty { color: var(--faint); font-size: 0.9rem; }
 .uc-more { display: inline-block; margin-top: 14px; font-size: 0.85rem; color: var(--kiro-2); font-weight: 600; }
 
