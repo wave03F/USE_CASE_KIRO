@@ -203,6 +203,17 @@
     revObserver.observe(el);
   });
 
+  /* ---------- IDE mockup 3D reveal (ไม่ใช้ .reveal เพราะมี transform เฉพาะ) ---------- */
+  const ideMock = document.querySelector(".ide-mock");
+  if (ideMock) {
+    const ideObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("revealed"); ideObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    ideObs.observe(ideMock);
+  }
+
   /* ---------- Smooth scroll ---------- */
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener("click", (e) => {

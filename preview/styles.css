@@ -1,18 +1,18 @@
-/* Pomodoro Timer — ตัวอย่างผลลัพธ์ (ธีมม่วง Kiro) */
+/* Pomodoro Timer — ตัวอย่างผลลัพธ์ (ธีม Kiro — kiro.dev style) */
 :root {
   --kiro: #7c5cff;
   --kiro-2: #a17bff;
   --orange: #ff9900;
-  --bg: #0a0c14;
-  --surface: #141827;
-  --text: #eef1f8;
-  --muted: #9aa3bd;
+  --bg: #000000;
+  --surface: #121216;
+  --text: #f4f4f6;
+  --muted: #a8a8b3;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: "Segoe UI", system-ui, sans-serif;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -20,14 +20,14 @@ body {
   justify-content: center;
   gap: 24px;
   background:
-    radial-gradient(700px 400px at 50% -5%, rgba(124, 92, 255, 0.25), transparent 60%),
+    radial-gradient(700px 400px at 50% -5%, rgba(124, 92, 255, 0.14), transparent 60%),
     var(--bg);
   color: var(--text);
 }
 
 .app {
-  background: linear-gradient(180deg, var(--surface), #1a1f33);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 24px;
   padding: 40px 46px;
   text-align: center;
